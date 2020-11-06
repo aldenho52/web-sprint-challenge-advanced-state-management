@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { connect } from 'react-redux'
-import { getData } from '../actions'
+import { getData, postData } from '../actions'
 import Smurf from './Smurf'
 
 const initialFormData = {
@@ -30,16 +30,30 @@ const App = (props) => {
       updateForm(name, value)
     }
 
-    const onSubmitHandler = () => {
+    const onSubmitHandler = (e) => {
+      e.preventDefault()
 
+      const newSmurf = {
+        name: formData.name.trim(),
+        age: formData.age.trim(),
+        height: formData.height.trim(),
+      }
+
+      if (!newSmurf.name || !newSmurf.age || !newSmurf.height) {
+        return;
+      }
+
+      console.log('working')
+      postData(newSmurf)
+      setFormData(initialFormData)
     }
   
     return (
       <div className="App">
         <h1>SMURFS! W/Redux</h1>
         <div>
-        {props.smurfData.map(smurf => {
-          return <Smurf smurf={smurf}/>
+        {props.smurfData.map((smurf, index) => {
+          return <Smurf key={index} smurf={smurf}/>
         })}
         </div>
         <form onSubmit={onSubmitHandler}>
@@ -66,4 +80,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {getData})(App);
+export default connect(mapStateToProps, {getData, postData})(App);
