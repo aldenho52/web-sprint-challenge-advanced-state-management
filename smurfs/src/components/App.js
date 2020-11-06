@@ -76,7 +76,7 @@ const App = (props) => {
 const mapStateToProps = (state) => {
   return {
     isLoading: state.isLoading,
-    error: state.error,git 
+    error: state.error,
     smurfData: state.smurfData
   }
 }
