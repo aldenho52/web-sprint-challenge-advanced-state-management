@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 const Smurf = (props) => {
     return (
@@ -6,6 +7,7 @@ const Smurf = (props) => {
             <h3>Name: {props.smurf.name}</h3>
             <p>Age: {props.smurf.age}</p>
             <p>Height: {props.smurf.height}</p>
+            <NavLink to={`/${props.smurf.name}`}>Profile Page</NavLink>
         </div>
     )
 }
