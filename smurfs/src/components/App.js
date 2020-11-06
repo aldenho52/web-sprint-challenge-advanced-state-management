@@ -15,7 +15,7 @@ const App = (props) => {
 
     useEffect(() => {
       props.getData()
-    }, [])
+    }, [props.smurfData])
 
 
     const updateForm = (inputName, inputValue) => {
@@ -44,7 +44,7 @@ const App = (props) => {
       }
 
       console.log('working')
-      postData(newSmurf)
+      props.postData(newSmurf)
       setFormData(initialFormData)
     }
   
