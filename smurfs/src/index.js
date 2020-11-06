@@ -13,9 +13,9 @@ import { reducer } from './reducers'
 const store = createStore(reducer, applyMiddleware(thunk, logger))
 
 ReactDOM.render(
-    <Router>
     <Provider store={store}>
+    <Router>
     <App />
-    </Provider>
-    </Router>,
+    </Router>
+    </Provider>,
      document.getElementById("root"));
