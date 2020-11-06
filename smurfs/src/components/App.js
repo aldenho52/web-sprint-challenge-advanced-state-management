@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { getData, postData } from '../actions'
 import Smurf from './Smurf'
 
+// initial form values
 const initialFormData = {
   name: '',
   age: '',
@@ -15,8 +16,7 @@ const App = (props) => {
 
     useEffect(() => {
       props.getData()
-    }, [props.smurfData])
-
+    }, [])
 
     const updateForm = (inputName, inputValue) => {
       setFormData({
@@ -51,20 +51,21 @@ const App = (props) => {
     return (
       <div className="App">
         <h1>SMURFS! W/Redux</h1>
-        <div>
+        <div className='smurf-container'>
         {props.smurfData.map((smurf, index) => {
           return <Smurf key={index} smurf={smurf}/>
         })}
         </div>
+        <h2>Add Smurf</h2>
         <form onSubmit={onSubmitHandler}>
-          <label>Name:
-            <input type='text' name='name' value={formData.name} onChange={onChangeHandler}/>
+          <label className='label-text'>Name:
+            <input className='input-box' type='text' name='name' value={formData.name} onChange={onChangeHandler}/>
           </label>
-          <label>Age:
-          <input type='text' name='age' value={formData.age} onChange={onChangeHandler}/>
+          <label className='label-text'>Age:
+          <input className='input-box' type='text' name='age' value={formData.age} onChange={onChangeHandler}/>
           </label>
-          <label>Height:
-          <input type='text' name='height' value={formData.height} onChange={onChangeHandler}/>
+          <label className='label-text'>Height:
+          <input className='input-box' type='text' name='height' value={formData.height} onChange={onChangeHandler}/>
           </label>
           <button>Submit</button>
         </form>
@@ -75,7 +76,7 @@ const App = (props) => {
 const mapStateToProps = (state) => {
   return {
     isLoading: state.isLoading,
-    error: state.error,
+    error: state.error,git 
     smurfData: state.smurfData
   }
 }
