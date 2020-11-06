@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { getData, postData } from '../actions'
 import Smurf from './Smurf'
 import { Route } from 'react-router-dom'
+import ProfilePage from "./ProfilePage";
 
 // initial form values
 const initialFormData = {
@@ -72,6 +73,14 @@ const App = (props) => {
             <button>Submit</button>
           </form>
         </Route>
+
+        {props.smurfData.map((smurf, index) => {
+          return (
+            <Route path={`/${smurf.name}`}>
+            <ProfilePage key={index} smurf={smurf} />
+            </Route>
+          )
+        })}
       </div>
     );
 }

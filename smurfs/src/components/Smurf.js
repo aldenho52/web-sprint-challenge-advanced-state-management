@@ -1,5 +1,6 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Route } from 'react-router-dom'
+import ProfilePage from './ProfilePage'
 
 const Smurf = (props) => {
     return (
