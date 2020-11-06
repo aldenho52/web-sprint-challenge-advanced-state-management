@@ -24,10 +24,24 @@ Commit your code regularly and meaningfully. This helps both you (in case you ev
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics. You might prepare by writing down your own answers before hand.
 
 1. What problem does the context API help solve?
+
+Context API helps solve the problem of props drilling and having to constantly pass your props to child elements. It allows access to the props you choose without passing them using a ProviderContext.
+
 2. In your own words, describe `actions`, `reducers` and the `store` and their role in Redux. What does each piece do? Why is the store known as a 'single source of truth' in a redux application?
+
+Actions are simply objects of data being passed. Reducers send those actions to the store, the state tree where it updates it. The store is known as the single source of truth because is contains all the data for the entire application and can only be mutable there.
+
 3. What is the difference between Application state and Component state? When would be a good time to use one over the other?
+
+Application state is global and can be used in every app, where as component state is limited to that component unless it is passed. It would be a good time to use application state when you have a piece of data or method or function that is used in multiple components. Component state is preferred if that state is used only to that specific component it resides in.
+
 4. Describe `redux-thunk`, what does it allow us to do? How does it change our `action-creators`?
+
+Redux-thunk allows us to run a dispatch function inside of a reducer function, allowing us to run asynchronous functions such as HTTP requests. It changes our action creators by nesting a function inside of a function.
+
 5. What is your favorite state management system you've learned and this sprint? Please explain why!
+
+I really enjoy reducer and the syntax behind it, figuring out how to update the state correctly. But I would say reducer is a bit cumbersome and it sometimes doesn't make sense about the way to write out the boilerplate. Context API might be the favorite because its so easy to use and effective, and reduces the lines of code to write.
 
 You are expected to be able to answer questions in these areas. Your responses contribute to your Sprint Challenge grade. 
 
