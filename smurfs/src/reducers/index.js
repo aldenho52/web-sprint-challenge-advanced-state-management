@@ -36,10 +36,7 @@ export const reducer = (state = initialState, action) => {
             return {
                 isLoading: false,
                 error: false,
-                smurfData: [
-                    ...state.smurfData,
-                    action.payload
-                ]
+                smurfData: action.payload
             }
         case POST_DATA_FAILURE:
             return {

@@ -17,8 +17,21 @@ const App = (props) => {
       props.getData()
     }, [])
 
-    onChangeHandler = (e) => {
-      setFormData
+
+    const updateForm = (inputName, inputValue) => {
+      setFormData({
+        ...formData,
+        [inputName]: inputValue
+      })
+    }
+
+    const onChangeHandler = (e) => {
+      const {name, value } = e.target
+      updateForm(name, value)
+    }
+
+    const onSubmitHandler = () => {
+
     }
   
     return (
@@ -29,15 +42,15 @@ const App = (props) => {
           return <Smurf smurf={smurf}/>
         })}
         </div>
-        <form>
+        <form onSubmit={onSubmitHandler}>
           <label>Name:
-            <input type='text' value />
+            <input type='text' name='name' value={formData.name} onChange={onChangeHandler}/>
           </label>
           <label>Age:
-            <input />
+          <input type='text' name='age' value={formData.age} onChange={onChangeHandler}/>
           </label>
           <label>Height:
-            <input />
+          <input type='text' name='height' value={formData.height} onChange={onChangeHandler}/>
           </label>
           <button>Submit</button>
         </form>

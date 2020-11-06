@@ -22,11 +22,11 @@ export const getData = () => {
     }
 }
 
-export const postData = () => {
+export const postData = (formData) => {
     return (dispatch) => {
         dispatch({type: POST_DATA_START})
 
-        axios.post('http://localhost:3333/smurfs', )
+        axios.post('http://localhost:3333/smurfs', formData)
             .then(res => {
                 dispatch({ type: FETCH_DATA_SUCCESS, payload: res.data})
             })
