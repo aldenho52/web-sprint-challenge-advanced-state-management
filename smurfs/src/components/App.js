@@ -1,16 +1,96 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
-class App extends Component {
-  render() {
+import { connect } from 'react-redux'
+import { getData, postData } from '../actions'
+import Smurf from './Smurf'
+import { Route } from 'react-router-dom'
+import ProfilePage from "./ProfilePage";
+
+// initial form values
+const initialFormData = {
+  name: '',
+  age: '',
+  height: ''
+}
+
+const App = (props) => {
+    const [formData, setFormData] = useState(initialFormData)
+
+    useEffect(() => {
+      props.getData()
+    }, [])
+
+    const updateForm = (inputName, inputValue) => {
+      setFormData({
+        ...formData,
+        [inputName]: inputValue
+      })
+    }
+
+    const onChangeHandler = (e) => {
+      const {name, value } = e.target
+      updateForm(name, value)
+    }
+
+    const onSubmitHandler = (e) => {
+      e.preventDefault()
+
+      const newSmurf = {
+        name: formData.name.trim(),
+        age: formData.age.trim(),
+        height: formData.height.trim(),
+      }
+
+      if (!newSmurf.name || !newSmurf.age || !newSmurf.height) {
+        return;
+      }
+
+      console.log('working')
+      props.postData(newSmurf)
+      setFormData(initialFormData)
+    }
+  
     return (
       <div className="App">
-        <h1>SMURFS! W/Redux</h1>
-        <div>Welcome to your state management version of Smurfs!</div>
-        <div>Start inside of your `src/index.js` file!</div>
-        <div>Have fun!</div>
+        <Route exact path = '/'>
+          <h1>SMURFS! W/Redux</h1>
+          <div className='smurf-container'>
+          {props.smurfData.map((smurf, index) => {
+            return <Smurf key={index} smurf={smurf}/>
+          })}
+          </div>
+          <h2>Add Smurf</h2>
+          <form onSubmit={onSubmitHandler}>
+            <label className='label-text'>Name:
+              <input className='input-box' type='text' name='name' value={formData.name} onChange={onChangeHandler}/>
+            </label>
+            <label className='label-text'>Age:
+              <input className='input-box' type='text' name='age' value={formData.age} onChange={onChangeHandler}/>
+            </label>
+            <label className='label-text'>Height:
+              <input className='input-box' type='text' name='height' value={formData.height} onChange={onChangeHandler}/>
+            </label>
+            <button>Submit</button>
+          </form>
+        </Route>
+
+        {props.smurfData.map((smurf, index) => {
+          return (
+            <Route path={`/${smurf.name}`}>
+            <ProfilePage key={index} smurf={smurf} />
+            </Route>
+          )
+        })}
       </div>
     );
+}
+
+const mapStateToProps = (state) => {
+  return {
+    isLoading: state.isLoading,
+    error: state.error,
+    smurfData: state.smurfData
   }
 }
 
-export default App;
+export default connect(mapStateToProps, {getData, postData})(App);
